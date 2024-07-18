@@ -14,6 +14,19 @@ function App() {
     setCopied(true);
   };
 
+  interface CopyAlertProps {
+    copied: boolean;
+  }
+  const CopyAlert = ({ copied }: CopyAlertProps) => {
+    if (copied) {
+      setTimeout(() => setCopied(false), 5000);
+      return (
+        <p className="text-2xl text-white text-center py-2 text-black">
+          copied to clipboard!!
+        </p>
+      );
+    }
+  };
   const passwordGenerator = () => {
     let pass: string = "";
     let str: string = "abcdefghojklmnopqrstuwxyz";
@@ -32,6 +45,7 @@ function App() {
       pass += str.charAt(char);
     }
     setPassword(pass);
+    setCopied(false);
     console.log(pass);
   };
 
@@ -39,9 +53,11 @@ function App() {
     passwordGenerator();
   }, [length, numAllowed, charAllowed, upperCaseAllowed]);
 
+
+
   return (
-    <div>
-      <div className="w-full max-w-xl mx-auto rounded-lg shadow-md px-4 pb-8 my-8 text-orange-500 bg-gray-900">
+    <div className="h-screen bg-gray-700 center pt-44">
+      <div className="w-full max-w-xl mx-auto rounded-lg shadow-md px-4 pb-8 text-orange-500 bg-gray-900 ">
         <p className="text-4xl text-center py-5 text-white">
           Password Generator
         </p>
@@ -106,12 +122,7 @@ function App() {
           </div>
         </div>
       </div>
-
-      {copied && (
-        <p className="text-2xl text-center py-2 text-black">
-          copied to clipboard!!
-        </p>
-      )}
+      <CopyAlert copied={copied} />
     </div>
   );
 }
