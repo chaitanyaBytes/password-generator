@@ -7,10 +7,11 @@ function App() {
   const [charAllowed, setCharAllowed] = useState(false);
   const [upperCaseAllowed, setUppercaseAllowed] = useState(false);
   const [password, setPassword] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const copyPassword = () => {
     window.navigator.clipboard.writeText(password);
-    alert("copied to clipboard")
+    setCopied(true);
   };
 
   const passwordGenerator = () => {
@@ -105,6 +106,12 @@ function App() {
           </div>
         </div>
       </div>
+
+      {copied && (
+        <p className="text-2xl text-center py-2 text-black">
+          copied to clipboard!!
+        </p>
+      )}
     </div>
   );
 }
